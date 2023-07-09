@@ -7,17 +7,7 @@ implicit none
   integer :: mode        ! The selected input mode
   integer :: p_x, p_y    ! Player x, y
 
-  integer :: k, i, m, val(8)
-  integer, allocatable :: seed(:)
-
-  call random_seed(size = k)
-  allocate(seed(k))
-  call date_and_time (values=val)
-  seed = [(173*i**2+4567,i=1,k)]
-  m = min(8,k)
-  seed(1:m) = seed(1:m) + val(m:1:-1)
-  call random_seed (put=seed)
-
+  call rand_seed()  
   call l_field%set_field(5, 10, 10)
 
   do while (running .ne. 0)

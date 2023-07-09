@@ -8,7 +8,6 @@ implicit none
     integer :: n_mines_discovered
     logical :: game_over
   contains
-    ! ? Find a way to include functions here
     procedure :: set_field
     procedure :: print_field
     procedure :: cell_number
@@ -16,8 +15,6 @@ implicit none
     procedure :: reveal_cell
     procedure :: delete
   end type game_field
-
-  ! ? How do I declare member functions / subroutines.
 contains
   subroutine cell_number(this, x, y, count)
     class(game_field), intent(inout) :: this
@@ -215,8 +212,20 @@ contains
     deallocate(this%vis_mines)
   end subroutine delete
 
+  subroutine rand_seed()
+    integer :: k, i, m, val(8)
+    integer, allocatable :: seed(:)
+
+    call random_seed(size = k)
+    allocate(seed(k))
+    call date_and_time (values=val)
+    seed = [(173*i**2+4567,i=1,k)]
+    m = min(8,k)
+    seed(1:m) = seed(1:m) + val(m:1:-1)
+    call random_seed (put=seed)
+  end subroutine rand_seed
+
   integer function rand_int(lower, upper)
-    ! TODO - Seed with the current time. 
     integer :: lower, upper
     real :: n
 

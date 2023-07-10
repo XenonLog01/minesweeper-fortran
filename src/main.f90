@@ -11,18 +11,17 @@ implicit none
   call l_field%set_field(5, 10, 10)
 
   do while (running .ne. 0)
-    ! TODO ::
-    !  - Otherwise ::
-    !   - Reveal the selected tile
-    !   - If it's a mine, exit the application
-    !  - Clear the previous frame
-    !  - Print the field
+    ! TODO :: Handle inputs being strings.
     call l_field%print_field
 
     print *, "Placement mode: (discover :: 1, flag :: 2, quit :: 3)"
     read(*,*) mode
     if (mode .eq. 3) then
       exit
+    else if (mode .eq. 2) then
+    else if (mode .eq. 1) then
+    else
+      cycle
     end if
 
     ! Get the x, y coordinates.
